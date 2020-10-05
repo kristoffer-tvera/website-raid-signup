@@ -29,8 +29,7 @@
     </div>
   </nav>
 
-
-  <img alt="Vue logo" src="./assets/logo.png">
+  <img alt="Vue logo" src="./assets/a2d.png" class="d-block mx-auto mb-5">
   <div class="container">
     <AddNewCharacter v-on:save-character="onCharacterSave" />
     <hr class="my-5" />
@@ -59,11 +58,18 @@
         links: [],
       }
     },
+    beforeMount() {
+      let fromLocalStorage = localStorage.getItem('characters');
+      if (fromLocalStorage) {
+        var characterList = JSON.parse(fromLocalStorage);
+        console.log(characterList);
+        this.characters = characterList;
+      }
+    },
     methods: {
       onCharacterSave(value) {
-        console.log('save was handled')
         this.characters.push(value);
-        console.log(this.characters);
+        localStorage.setItem('characters', JSON.stringify(this.characters));
       }
     }
   }

@@ -1,6 +1,9 @@
 <template>
-  <h2 class="text-center">Add/update character</h2>
-  <div class="row justify-content-center">
+  <h2 class="text-center">Add/update character <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#update-character" aria-expanded="false" aria-controls="update-character">
+    +
+  </button>
+  </h2>
+  <div class="row justify-content-center collapse" id="update-character"> 
     <div class="col-8">
       <form @submit="addOrUpdate">
         <div class="mb-3">
