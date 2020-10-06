@@ -48,4 +48,4 @@ jobs:
           ftp-server: ftp://ftp.amusedtodeath.eu/signup/
           ftp-username: amusedtodeath.eu
           ftp-password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./dist/
+          local-dir: dist
