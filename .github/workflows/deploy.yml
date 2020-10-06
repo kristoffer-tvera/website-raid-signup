@@ -33,6 +33,7 @@ jobs:
       - name: FTP-Deploy-Action
         uses: SamKirkland/FTP-Deploy-Action@3.1.1
         with:
-          ftp-server: ftp://ftp.amusedtodeath.eu/signup
+          ftp-server: ftp://ftp.amusedtodeath.eu/signup/
           ftp-username: amusedtodeath.eu
           ftp-password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./dist/
