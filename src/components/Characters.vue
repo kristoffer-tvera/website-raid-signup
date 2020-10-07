@@ -65,32 +65,32 @@ export default {
     },
     imageLink(className) {
       switch (className) {
-        case "0":
-          return require("../assets/classes/0.png");
-        case "1":
-          return require("../assets/classes/1.png");
-        case "2":
-          return require("../assets/classes/2.png");
-        case "3":
-          return require("../assets/classes/3.png");
-        case "4":
-          return require("../assets/classes/4.png");
-        case "5":
-          return require("../assets/classes/5.png");
-        case "6":
-          return require("../assets/classes/6.png");
-        case "7":
-          return require("../assets/classes/7.png");
-        case "8":
-          return require("../assets/classes/8.png");
-        case "9":
-          return require("../assets/classes/9.png");
-        case "10":
-          return require("../assets/classes/10.png");
-        case "11":
-          return require("../assets/classes/11.png");
+        case 1:
+          return require("../assets/classes/warrior.png");
+        case 2:
+          return require("../assets/classes/paladin.png");
+        case 3:
+          return require("../assets/classes/hunter.png");
+        case 4:
+          return require("../assets/classes/rogue.png");
+        case 5:
+          return require("../assets/classes/priest.png");
+        case 6:
+          return require("../assets/classes/deathknight.png");
+        case 7:
+          return require("../assets/classes/shaman.png");
+        case 8:
+          return require("../assets/classes/mage.png");
+        case 9:
+          return require("../assets/classes/warlock.png");
+        case 10:
+          return require("../assets/classes/monk.png");
+        case 11:
+          return require("../assets/classes/druid.png");
+        case 12:
+          return require("../assets/classes/demonhunter.png");
         default:
-          return "Pepega";
+          return require("../assets/classes/warrior.png");
       }
     },
     update(id) {

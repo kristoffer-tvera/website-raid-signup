@@ -68,7 +68,7 @@ export default {
         id: Math.floor(Math.random() * 133769),
         name: "",
         server: "",
-        className: "",
+        className: 0,
         ilvl: 0,
         tank: false,
         healer: false,

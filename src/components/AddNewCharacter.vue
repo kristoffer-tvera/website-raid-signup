@@ -328,18 +328,18 @@
             v-model="character.className"
             required="required"
           >
-            <option value="0">Druid</option>
-            <option value="1">Paladin</option>
-            <option value="2">Warrior</option>
-            <option value="3">Demon Hunter</option>
-            <option value="4">Hunter</option>
-            <option value="5">Mage</option>
-            <option value="6">Rogue</option>
-            <option value="7">Death Knight</option>
-            <option value="8">Priest</option>
+            <option value="1">Warrior</option>
+            <option value="2">Paladin</option>
+            <option value="3">Hunter</option>
+            <option value="4">Rogue</option>
+            <option value="5">Priest</option>
+            <option value="6">Death Knight	</option>
+            <option value="7">Shaman</option>
+            <option value="8">Mage</option>
             <option value="9">Warlock</option>
-            <option value="10">Shaman</option>
-            <option value="11">Monk</option>
+            <option value="10">Monk</option>
+            <option value="11">Druid</option>
+            <option value="12">Demon Hunter</option>
           </select>
         </div>
 
@@ -401,7 +401,7 @@ export default {
         id: this.character.id,
         name: this.character.name,
         server: this.character.server,
-        className: this.character.className,
+        className: Number.parseInt(this.character.className),
         ilvl: this.character.ilvl,
         tank: this.character.tank,
         healer: this.character.healer,
@@ -412,7 +412,7 @@ export default {
       this.character.id = Math.floor(Math.random() * 133769);
       this.character.name = "";
       this.character.server = "";
-      this.character.className = "";
+      this.character.className = 0;
       this.character.ilvl = 0;
       this.character.tank = false;
       this.character.healer = false;
