@@ -70,7 +70,7 @@
                 $characters[] = (object)array(
                     'id' => $character->id,
                     'name' => $character->name, 
-                    'server' => $character->realm->name, 
+                    'server' => $character->realm->slug, 
                     'className' => $character->playable_class->id, 
                     'ilvl' => 0, 
                     'tank' => false, 
