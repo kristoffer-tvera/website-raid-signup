@@ -23,7 +23,7 @@ jobs:
       - uses: actions/checkout@master
 
       # Populate secrets-file for php
-      - run: 'echo "$PHP_SECRET" > ./public/secret.php'
+      - run: 'echo "$PHP_SECRET" > ./public/secrets.php'
         shell: bash
         env:
           PHP_SECRET: ${{secrets.PHP}}
