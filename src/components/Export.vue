@@ -86,7 +86,7 @@ export default {
               " "
             ) + "| ";
           value +=
-            ilvls[i].padEnd(
+            (ilvls[i] + '').padEnd(
               Math.max(...ilvls.map((ilvl) => ilvl.length)) + 1,
               " "
             ) + "| ";

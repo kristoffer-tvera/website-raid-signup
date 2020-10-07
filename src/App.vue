@@ -23,6 +23,7 @@
               aria-current="page"
               :href="link.href"
               :aria-disabled="link.disabled"
+              :target="link.target"
               >{{ link.name }}</a
             >
           </li>
@@ -82,6 +83,7 @@ export default {
           href:
             "https://github.com/kristoffer-tvera/website-sylvanas-raid-signup",
           disabled: false,
+          target: "_blank",
         },
         {
           id: 2,
@@ -89,14 +91,22 @@ export default {
           href:
             "https://github.com/kristoffer-tvera/website-sylvanas-raid-signup/issues",
           disabled: false,
+          target: "_blank",
         },
         {
           id: 3,
           name: "Donate",
           href: "https://www.savethechildren.org/",
           disabled: false,
+          target: "_blank",
         },
-        { id: 4, name: "BNet Import (comming soon)", href: "", disabled: true },
+        {
+          id: 4,
+          name: "BNet Import ",
+          href: "https://signup.amusedtodeath.eu/bnet/",
+          disabled: false,
+          target: "_self",
+        }
       ],
     };
   },
