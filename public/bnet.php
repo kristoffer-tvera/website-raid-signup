@@ -68,15 +68,41 @@
         foreach($account->characters as $character){
             if($character->level == 120){
                 $characters[] = (object)array(
+                    'id' => $character->id,
                     'name' => $character->name, 
-                    'realm' => $character->realm->name, 
-                    'class' => $character->playable_class->name, 
-                    'faction' => $character->faction->name, 
-                    'id' => $character->id
+                    'server' => $character->realm->name, 
+                    'className' => $character->playable_class->id, 
+                    'ilvl' => 0, 
+                    'tank' => false, 
+                    'healer' => false, 
+                    'dps' => false, 
+                    'saved' => false, 
                 );
             }
         }
     }
-
-    echo json_encode($characters);
 ?>
+
+<script>
+    let charactersFromApi = <?php echo json_encode($characters) ?>;
+    
+    let characters = [];
+    let fromLocalStorage = localStorage.getItem("characters");
+    if (fromLocalStorage) {
+        characters = JSON.parse(fromLocalStorage);
+    }
+    
+    for (let i = 0; i < charactersFromApi.length; i++) {
+        let alreadyInList = false;
+        for (let j = 0; j < characters.length; j++) {
+            if (characters[j].id == charactersFromApi[i].id) alreadyInList = true;
+        }
+
+        if (!alreadyInList) {
+            characters.push(charactersFromApi[i]);
+        }
+    }
+
+    localStorage.setItem("characters", JSON.stringify(characters));
+    window.location.replace("https://signup.amusedtodeath.eu/");
+</script>
