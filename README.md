@@ -1,4 +1,4 @@
-# sylvanas-raid-signup
+# raid-signup
 
 ## Project setup
 ```
