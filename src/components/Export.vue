@@ -158,7 +158,7 @@ export default {
                 ...[
                   roles[i].length,
                   classes[i].length,
-                  ilvls[i].length,
+                  (ilvls[i] + "").length,
                   (logs[i] + "").length,
                   saved[i].length,
                 ]
@@ -176,7 +176,7 @@ export default {
                 ...[
                   roles[i].length,
                   classes[i].length,
-                  ilvls[i].length,
+                  (ilvls[i] + "").length,
                   (logs[i] + "").length,
                   saved[i].length,
                 ]
@@ -194,7 +194,7 @@ export default {
                 ...[
                   roles[i].length,
                   classes[i].length,
-                  ilvls[i].length,
+                  (ilvls[i] + "").length,
                   (logs[i] + "").length,
                   saved[i].length,
                 ]
@@ -212,7 +212,7 @@ export default {
                 ...[
                   roles[i].length,
                   classes[i].length,
-                  ilvls[i].length,
+                  (ilvls[i] + "").length,
                   (logs[i] + "").length,
                   saved[i].length,
                 ]
@@ -230,7 +230,7 @@ export default {
                 ...[
                   roles[i].length,
                   classes[i].length,
-                  ilvls[i].length,
+                  (ilvls[i] + "").length,
                   (logs[i] + "").length,
                   saved[i].length,
                 ]
@@ -255,7 +255,7 @@ export default {
           ) + "| ";
         value +=
           (ilvls[i] + "").padEnd(
-            Math.max(...ilvls.map((ilvl) => ilvl.length)) + 1,
+            Math.max(...ilvls.map((ilvl) => (ilvl + "").length)) + 1,
             " "
           ) + "| ";
         value +=
