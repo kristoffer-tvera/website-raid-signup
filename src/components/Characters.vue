@@ -4,10 +4,14 @@
   <div class="row justify-content-center">
     <div
       class="col-12 col-lg-3 my-4"
-      v-for="character in characters"
+      v-for="(character, index) in characters"
       :key="character.id"
     >
-      <div class="card" style="width: 18rem">
+      <div class="card">
+        <div class="card-header">
+        <button type="button" class="move left" @click="move(index, index-1)" :disabled="index == 0"> &laquo; </button>
+        <button type="button" class="move right" @click="move(index, index+1)" :disabled="index == (this.characters.length-1)"> &raquo; </button>
+      </div>
         <img
           :src="imageLink(character.className)"
           class="card-img-top p-4"
@@ -31,12 +35,6 @@
         <div class="card-body d-flex justify-content-around">
           <button type="button" class="btn btn-danger" @click="remove(character.id)">Remove</button>
           <button type="button" class="btn btn-primary" @click="update(character.id)">Update</button>
-          <!-- <a href="#" class="btn btn-danger" @click="remove(character.id)"
-            >Remove</a
-          >
-          <a href="#" class="btn btn-primary" @click="update(character.id)"
-            >Update</a
-          > -->
         </div>
       </div>
     </div>
@@ -107,6 +105,14 @@ export default {
     toggleSaved(id) {
       this.$emit("toggle-saved", id);
     },
+    move(id, target){
+      if (target < 0) return;
+      if (target >= this.characters.length) return;
+
+      let tmp = this.characters[target];
+      this.characters[target] = this.characters[id];
+      this.characters[id] = tmp;
+    }
   },
   emits: ["update-character", "remove-character", "toggle-saved"],
 };
@@ -120,4 +126,24 @@ export default {
 .list {
   background-color: white;
 }
+
+.move{
+  width: 50%;
+  border: 0;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.move[disabled]{
+  cursor: no-drop;
+}
+
+.move:hover{
+  background-color: #5555;
+}
+
+.move[disabled]:hover{
+  background-color: transparent;
+}
+
 </style>
