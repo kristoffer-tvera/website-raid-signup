@@ -1,5 +1,5 @@
 <template>
-  <h2 class="text-center">
+  <h2 class="text-center" id="AddOrUpdateCharTitle">
     Add/update character
     <button
       class="btn btn-primary collapsed"

@@ -3,6 +3,14 @@
     <button class="btn btn-primary mb-3" type="button" @click="copyText">
       Copy text
     </button>
+
+    <button
+      class="btn btn-primary mb-3 ml-3"
+      type="button"
+      @click="toggleExportFormat"
+    >
+      Toggle between horizontal / vertical display
+    </button>
     <label for="export-area" class="form-label sr-only">Example textarea</label>
     <textarea
       class="form-control"
@@ -29,81 +37,46 @@ export default {
   },
   computed: {
     rows() {
-      return (this.characters.length * 2) + 3;
+      return this.characters.length * 2 + 3;
     },
     textarea() {
       let value = "";
+      let roles = ["Role"].concat(
+        this.characters.map((char) => {
+          let r = [];
+          if (char.tank) r.push("Tank");
+          if (char.healer) r.push("Healer");
+          if (char.dps) r.push("Dps");
+          return r.join("/");
+        })
+      );
+      let classes = ["Class"].concat(
+        this.characters.map((char) => this.classNameFromId(char.className))
+      );
+      let ilvls = ["Ilvl"].concat(this.characters.map((char) => char.ilvl));
+      let logs = ["Logs"].concat(
+        this.characters.map((char, index) => index + 1)
+      );
+      let saved = ["Saved"].concat(
+        this.characters.map((char) => (char.saved ? "yes" : "no"))
+      );
 
       if (this.vertical) {
-        value += "```";
-
-        value += "\nRole :";
-        value += "\nClass:";
-        value += "\nilvl :";
-        value += "\nLogs :";
-        value += "\nSaved:";
-
-        value += "\n```";
-        value += "\n(n): https://www.warcraftlogs.com/character/eu/draenor/jsl";
-
-        return value;
+        value += this.classListToStringVertical(
+          roles,
+          classes,
+          ilvls,
+          logs,
+          saved
+        );
       } else {
-        value += "```";
-
-        let roles = ["Role"];
-        let ilvls = ["Ilvl"];
-        let classes = ["Class"];
-        let logs = ["Logs"];
-        let saved = ["Saved"];
-
-        let index = 1;
-        this.characters.forEach((char) => {
-          if (char.name.length === 0) return;
-
-          let charRoles = [];
-          if (char.tank) charRoles.push("Tank");
-          if (char.healer) charRoles.push("Heal");
-          if (char.dps) charRoles.push("Dps");
-
-          let role = charRoles.join("/");
-
-          roles.push(role);
-          ilvls.push(char.ilvl);
-          classes.push(this.classNameFromId(char.className));
-          logs.push("(" + index++ + ")");
-          if (char.saved) {
-            saved.push("yes");
-          } else {
-            saved.push("no");
-          }
-        });
-
-        for (let i = 0; i < index; i++) {
-          value += "\n";
-          value +=
-            roles[i].padEnd(
-              Math.max(...roles.map((role) => role.length)) + 1,
-              " "
-            ) + "| ";
-          value +=
-            (ilvls[i] + '').padEnd(
-              Math.max(...ilvls.map((ilvl) => ilvl.length)) + 1,
-              " "
-            ) + "| ";
-          value +=
-            classes[i].padEnd(
-              Math.max(...classes.map((className) => className.length)) + 1,
-              " "
-            ) + "| ";
-          value +=
-            logs[i].padEnd(
-              Math.max(...logs.map((log) => log.length)) + 1,
-              " "
-            ) + "| ";
-          value += saved[i];
-        }
-
-        value += "\n```";
+        value += this.classListToStringHorizontal(
+          roles,
+          classes,
+          ilvls,
+          logs,
+          saved
+        );
       }
 
       for (let i = 0; i < this.characters.length; i++) {
@@ -139,34 +112,167 @@ export default {
       }
     },
     classNameFromId(id) {
+      id = Number.parseInt(id);
       switch (id) {
-        case "0":
-          return "Druid";
-        case "1":
-          return "Paladin";
-        case "2":
+        case 1:
           return "Warrior";
-        case "3":
-          return "Demon Hunter";
-        case "4":
+        case 2:
+          return "Paladin";
+        case 3:
           return "Hunter";
-        case "5":
-          return "Mage";
-        case "6":
+        case 4:
           return "Rogue";
-        case "7":
-          return "Death Knight";
-        case "8":
+        case 5:
           return "Priest";
-        case "9":
-          return "Warlock";
-        case "10":
+        case 6:
+          return "DK";
+        case 7:
           return "Shaman";
-        case "11":
+        case 8:
+          return "Mage";
+        case 9:
+          return "Warlock";
+        case 10:
           return "Monk";
+        case 11:
+          return "Druid";
+        case 12:
+          return "DH";
         default:
           return "Pepega";
       }
+    },
+
+    toggleExportFormat() {
+      this.vertical = !this.vertical;
+    },
+
+    classListToStringVertical(roles, classes, ilvls, logs, saved) {
+      let value = "```";
+      value +=
+        "\n" +
+        roles
+          .map((role, i) =>
+            role.padEnd(
+              Math.max(
+                ...[
+                  roles[i].length,
+                  classes[i].length,
+                  ilvls[i].length,
+                  (logs[i] + "").length,
+                  saved[i].length,
+                ]
+              ) + 1,
+              " "
+            )
+          )
+          .join("| ");
+      value +=
+        "\n" +
+        ilvls
+          .map((ilvl, i) =>
+            ilvl.padEnd(
+              Math.max(
+                ...[
+                  roles[i].length,
+                  classes[i].length,
+                  ilvls[i].length,
+                  (logs[i] + "").length,
+                  saved[i].length,
+                ]
+              ) + 1,
+              " "
+            )
+          )
+          .join("| ");
+      value +=
+        "\n" +
+        classes
+          .map((className, i) =>
+            className.padEnd(
+              Math.max(
+                ...[
+                  roles[i].length,
+                  classes[i].length,
+                  ilvls[i].length,
+                  (logs[i] + "").length,
+                  saved[i].length,
+                ]
+              ) + 1,
+              " "
+            )
+          )
+          .join("| ");
+      value +=
+        "\n" +
+        logs
+          .map((log, i) =>
+            (log + "").padEnd(
+              Math.max(
+                ...[
+                  roles[i].length,
+                  classes[i].length,
+                  ilvls[i].length,
+                  (logs[i] + "").length,
+                  saved[i].length,
+                ]
+              ) + 1,
+              " "
+            )
+          )
+          .join("| ");
+      value +=
+        "\n" +
+        saved
+          .map((save, i) =>
+            save.padEnd(
+              Math.max(
+                ...[
+                  roles[i].length,
+                  classes[i].length,
+                  ilvls[i].length,
+                  (logs[i] + "").length,
+                  saved[i].length,
+                ]
+              ) + 1,
+              " "
+            )
+          )
+          .join("| ");
+      value += "\n```";
+
+      return value;
+    },
+    classListToStringHorizontal(roles, classes, ilvls, logs, saved) {
+      let value = "```";
+
+      for (let i = 0; i < roles.length; i++) {
+        value += "\n";
+        value +=
+          roles[i].padEnd(
+            Math.max(...roles.map((role) => role.length)) + 1,
+            " "
+          ) + "| ";
+        value +=
+          (ilvls[i] + "").padEnd(
+            Math.max(...ilvls.map((ilvl) => ilvl.length)) + 1,
+            " "
+          ) + "| ";
+        value +=
+          classes[i].padEnd(
+            Math.max(...classes.map((className) => className.length)) + 1,
+            " "
+          ) + "| ";
+        value +=
+          (logs[i] + "").padEnd(
+            Math.max(...logs.map((log) => (log + "").length)) + 1,
+            " "
+          ) + "| ";
+        value += saved[i];
+      }
+
+      value += "\n```";
+      return value;
     },
   },
 };

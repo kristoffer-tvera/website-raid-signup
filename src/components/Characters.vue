@@ -63,8 +63,9 @@ export default {
       }
       return "❌";
     },
-    imageLink(className) {
-      switch (className) {
+    imageLink(id) {
+      id = Number.parseInt(id);
+      switch (id) {
         case 1:
           return require("../assets/classes/warrior.png");
         case 2:
@@ -95,6 +96,13 @@ export default {
     },
     update(id) {
       this.$emit("update-character", id);
+
+      setTimeout(() => {
+        let element = document.querySelector('#AddOrUpdateCharTitle');
+        if (element){
+          element.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"});
+        }
+      }, 500);
     },
     remove(id) {
       this.$emit("remove-character", id);
