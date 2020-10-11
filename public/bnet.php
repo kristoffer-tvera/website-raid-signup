@@ -82,12 +82,26 @@
     foreach($decoded->wow_accounts as $account){
         foreach($account->characters as $character){
             if($character->level == $levelFilter && $character->faction->name == $factionFilter){
+
+
+                $sub_query = curl_init( $character->character->href . '&access_token=' . $access_token );
+                curl_setopt( $sub_query, CURLOPT_RETURNTRANSFER, true);
+                $response = curl_exec( $sub_query );
+                $status = curl_getinfo( $sub_query, CURLINFO_HTTP_CODE);
+                curl_close( $sub_query );
+
+                $ilvl = 0;
+                if ($status === 200) {
+                    $decoded = json_decode($response);
+                    $ilvl = intval($decoded->average_item_level);
+                }
+
                 $characters[] = (object)array(
                     'id' => $character->id,
                     'name' => $character->name, 
                     'server' => $character->realm->slug, 
                     'className' => $character->playable_class->id, 
-                    'ilvl' => 0, 
+                    'ilvl' => $ilvl, 
                     'tank' => false, 
                     'healer' => false, 
                     'dps' => false, 
