@@ -106,15 +106,10 @@ export default {
       this.$emit("toggle-saved", id);
     },
     move(id, target){
-      if (target < 0) return;
-      if (target >= this.characters.length) return;
-
-      let tmp = this.characters[target];
-      this.characters[target] = this.characters[id];
-      this.characters[id] = tmp;
+      this.$emit("move-character", id, target);
     }
   },
-  emits: ["update-character", "remove-character", "toggle-saved"],
+  emits: ["update-character", "remove-character", "toggle-saved", "move-character"],
 };
 </script>
 

@@ -44,6 +44,7 @@
       v-on:update-character="onCharacterUpdate"
       v-on:remove-character="onCharacterRemove"
       v-on:toggle-saved="onToggleSaved"
+      v-on:move-character="onMoveCharacter"
     />
     <hr class="my-5" />
     <Export :character-list="characters" />
@@ -166,6 +167,16 @@ export default {
           this.characters[i].saved = !this.characters[i].saved;
         }
       }
+
+      localStorage.setItem("characters", JSON.stringify(this.characters));
+    },
+    onMoveCharacter(id, target){
+      if (target < 0) return;
+      if (target >= this.characters.length) return;
+
+      let tmp = this.characters[target];
+      this.characters[target] = this.characters[id];
+      this.characters[id] = tmp;
 
       localStorage.setItem("characters", JSON.stringify(this.characters));
     },
