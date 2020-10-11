@@ -7,6 +7,8 @@
     if(empty($state) && empty($code)){
         $session_state = bin2hex(random_bytes(8));
         $_SESSION["state"] = $session_state;
+        $_SESSION["level"] = htmlspecialchars($_GET['level']);
+        $_SESSION["faction"] = htmlspecialchars($_GET['faction']);
         header('Location: https://eu.battle.net/oauth/authorize?client_id=' . $client_id . '&scope=wow.profile&state=' . $session_state . '&redirect_uri=' . $redirect . '&response_type=code');
         exit;
     } else {
@@ -64,9 +66,22 @@
     $decoded = json_decode($response);
 
     $characters = [];
+    $levelFilter = $_SESSION["level"];
+    $factionFilter = $_SESSION["faction"];
+    
+    if(empty($levelFilter)){
+        $levelFilter = 120;
+    }else {
+        $levelFilter = intval($levelFilter);
+    }
+
+    if(empty($factionFilter)){
+        $factionFilter = 'Horde';
+    }
+
     foreach($decoded->wow_accounts as $account){
         foreach($account->characters as $character){
-            if($character->level == 120){
+            if($character->level == $levelFilter && $character->faction->name == $factionFilter){
                 $characters[] = (object)array(
                     'id' => $character->id,
                     'name' => $character->name, 
