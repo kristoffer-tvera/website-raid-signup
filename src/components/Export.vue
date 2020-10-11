@@ -171,7 +171,7 @@ export default {
         "\n" +
         ilvls
           .map((ilvl, i) =>
-            ilvl.padEnd(
+            (ilvl + "").padEnd(
               Math.max(
                 ...[
                   roles[i].length,
