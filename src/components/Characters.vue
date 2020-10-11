@@ -54,9 +54,6 @@ export default {
     };
   },
   methods: {
-    debug() {
-      console.log(this.characters);
-    },
     checkbox(bool) {
       if (bool) {
         return "✔";

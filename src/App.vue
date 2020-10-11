@@ -140,10 +140,8 @@ export default {
       localStorage.setItem("characters", JSON.stringify(this.characters));
     },
     onCharacterUpdate(id) {
-      console.log("starting update: " + id);
       let character = this.characters.find((el) => el.id === id);
       if (character) {
-        console.log("updating: " + character.id);
         this.characterToUpdate = character;
       }
       let myCollapser = document.querySelector(
@@ -159,6 +157,8 @@ export default {
           this.characters.splice(i, 1);
         }
       }
+
+      localStorage.setItem("characters", JSON.stringify(this.characters));
     },
     onToggleSaved(id) {
       for (let i = 0; i < this.characters.length; i++) {
@@ -166,6 +166,8 @@ export default {
           this.characters[i].saved = !this.characters[i].saved;
         }
       }
+
+      localStorage.setItem("characters", JSON.stringify(this.characters));
     },
   },
 };
