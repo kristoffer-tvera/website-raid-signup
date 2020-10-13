@@ -104,14 +104,14 @@ export default {
         {
           id: 4,
           name: "BNet Import (Horde)",
-          href: "https://signup.amusedtodeath.eu/bnet/?level=120&faction=Horde",
+          href: "https://signup.amusedtodeath.eu/bnet/?level=50&faction=Horde",
           disabled: false,
           target: "_self",
         },
         {
           id: 5,
           name: "BNet Import (Alliance)",
-          href: "https://signup.amusedtodeath.eu/bnet/?level=120&faction=Alliance",
+          href: "https://signup.amusedtodeath.eu/bnet/?level=50&faction=Alliance",
           disabled: false,
           target: "_self",
         }
