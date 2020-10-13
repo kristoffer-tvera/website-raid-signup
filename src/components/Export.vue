@@ -40,9 +40,12 @@ export default {
       return this.characters.length * 2 + 3;
     },
     textarea() {
+
+      let filteredCharacters =  this.characters.filter(char => !char.saved)
+
       let value = "";
       let roles = ["Role"].concat(
-        this.characters.map((char) => {
+        filteredCharacters.map((char) => {
           let r = [];
           if (char.tank) r.push("Tank");
           if (char.healer) r.push("Healer");
@@ -51,14 +54,14 @@ export default {
         })
       );
       let classes = ["Class"].concat(
-        this.characters.map((char) => this.classNameFromId(char.className))
+        filteredCharacters.map((char) => this.classNameFromId(char.className))
       );
-      let ilvls = ["Ilvl"].concat(this.characters.map((char) => char.ilvl));
+      let ilvls = ["Ilvl"].concat(filteredCharacters.map((char) => char.ilvl));
       let logs = ["Logs"].concat(
-        this.characters.map((char, index) => index + 1)
+        filteredCharacters.map((char, index) => index + 1)
       );
       let saved = ["Saved"].concat(
-        this.characters.map((char) => (char.saved ? "yes" : "no"))
+        filteredCharacters.map((char) => (char.saved ? "yes" : "no"))
       );
 
       if (this.vertical) {
@@ -79,8 +82,8 @@ export default {
         );
       }
 
-      for (let i = 0; i < this.characters.length; i++) {
-        const char = this.characters[i];
+      for (let i = 0; i < filteredCharacters.length; i++) {
+        const char = filteredCharacters[i];
 
         let server = char.server.toLowerCase().replace(" ", "-");
         let name = char.name.toLowerCase();
